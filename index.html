@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Podcast Explorer</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <title>Podcast Explorer</title>
 </head>
 <body>
     <header>
@@ -15,11 +15,47 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-one-quarter">RANDOM</div>
-                <div class="column is-three-quarter">EXPLORE:</div>
+                <div class="column is-one-quarter">
+                    RANDOM
+                    <div class="search-container">
+                        <form id="search-form" class="search-form">
+                          <input name="search" id="search" type="text" autofocus="true" class="form-input"/>
+                          <button type="submit" class="btn">Search</button>
+                        </form>
+                    </div>
+                    <div class="category-container">
+                        <div id="categories" class="categories">
+                            <button id="news">News</button>
+                            <button id="business">Business</button>
+                            <button id="health">Health & Fitness</button>
+                            <button id="education">Education</button>
+                            <button id="science">Science</button>
+                            <button id="family">Kids & Family</button>
+                            <button id="government">Government</button>
+                            <button id="comedy">Comedy</button>
+                            <button id="crime">True Crime</button>
+                            <button id="videoGames">Video Games</button>
+                            <button id="history">History</button>
+                            <button id="tech">Technology</button>
+                            <button id="leisure">Leisure</button>
+                            <button id="culture">Society & Culture</button>
+                            <button id="sports">Sports</button>
+                            <button id="arts">Arts</button>
+                            <button id="tv">TV & Film</button>
+                            <button id="music">Music</button>
+                            <button id="ficition">Fiction</button>
+                            <button id="entertainment">Entertainment</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-three-quarter">EXPLORE:</div>     
+
+                </div>
             </div>
         </div>
     </section>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
