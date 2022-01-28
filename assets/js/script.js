@@ -6,34 +6,41 @@ var formSubmitHandler = function(event) {
     event.preventDefault();
     
     // get value from seach input
-    var search = searchInputEl.value.trim();
+    var show = searchInputEl.value.trim();
+    console.log(show);
 
-    if(search) {
-        getSpotify(search);
+    if(show) {
+        getApplePodShowRepos(show);
+
         searchInputEl.value = "";
     } else {
         alert("Please enter a podcast category");
     }
 };
 
-// TO DO: use api fetch to get podcast show info
-var getSpotify = function(show) {
-    var apiUrl = "https://api.spotify.com/v1/search";
+// Lilly's code start
+var getApplePodShowRepos = function(show) {
+    console.log(show);
+    // format the github api url
+    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm";
+    
+    // make a request to the url
     fetch(apiUrl).then(function(response) {
-        console.log(response);
-        response.json().then(function(data) {
-            console.log(data);
-        });
+
+        // if request was successful
+        if (response.ok) {
+            response.json().then(function() {
+                console.log("successful");
+            });
+        // if request fails
+        }  else {
+            alert("Error: search term not found");
+        }
+        // if connection issue
+    }).catch(function(error) {
+        // this catch is chained to the end of the ".then"
+        alert("Error: search term not found. Please try again.");
     });
-};
-
-// TO DO: when you click a category button, it presents podcast cards for that category in the second column
-
- 
-// TO DO: do we need to create array with the fetched api data??
-array = {
-    education: [],
-    news: [],
 };
 
 categoryBtn.on("click", function(event) {
@@ -42,6 +49,8 @@ categoryBtn.on("click", function(event) {
         var category = event.target.textContent;
         console.log(category);
     }
+    getApplePodShowRepos(category);
 });
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
+
