@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <title>Podcast Explorer</title>
+    <link rel="icon" type="image/x-icon" href="https://img.icons8.com/external-vitaliy-gorbachev-lineal-color-vitaly-gorbachev/60/000000/external-podcast-social-media-vitaliy-gorbachev-lineal-color-vitaly-gorbachev.png"/>
 </head>
 <body>
     <header>
@@ -16,13 +17,18 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-one-quarter">
-                    RANDOM
+                    <h2>
+                        Search by Keyword
+                    </h2>
                     <div class="search-container">
                         <form id="search-form" class="search-form">
                           <input name="search" id="search" type="text" autofocus="true" class="form-input"/>
                           <button type="submit" class="btn">Search</button>
                         </form>
                     </div>
+                    <h2>
+                        Search by Category
+                    </h2>
                     <div class="category-container">
                         <div id="categories" class="categories">
                             <button id="news">News</button>
@@ -48,8 +54,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="column is-three-quarter">EXPLORE:</div>     
-
+                <div class="column is-three-quarter">    
+                    <h2>
+                        Search Results:
+                    </h2>
                 </div>
             </div>
         </div>
