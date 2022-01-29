@@ -1,6 +1,6 @@
 var getApplePodShowRepos = function(show) {
     // format the github api url
-    var apiUrl = "https://itunes.apple.com/search?term=comedy&entity=podcast&attribute=keywordsTerm";
+    var apiUrl = "https://itunes.apple.com/search?term=ficion&entity=podcast&attribute=keywordsTerm";
     
     // make a request to the url
     fetch(apiUrl).then(function(response) {
@@ -22,9 +22,9 @@ var getApplePodShowRepos = function(show) {
 };
 
 
-var userFormEl = document.querySelector("#user-form");
-var languageButtonsEl = document.querySelector("#language-buttons");
-var nameInputEl = document.querySelector("#username");
+//var userFormEl = document.querySelector("#user-form");
+//var languageButtonsEl = document.querySelector("#language-buttons");
+//var nameInputEl = document.querySelector("#username");
 var repoContainerEl = document.querySelector("#repos-container");
 var repoSearchTerm = document.querySelector("#repo-search-term");
 
@@ -61,13 +61,13 @@ var displayRepos = function(repos, searchTerm) {
       var statusEl = document.createElement("span");
       statusEl.classList = "flex-row align-center";
   
-    //   // check if current repo has issues or not
-    //   if (repos[i].open_issues_count > 0) {
-    //     statusEl.innerHTML =
-    //       "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + " issue(s)";
-    //   } else {
-    //     statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-    //   }
+      // check if current repo has issues or not
+      // if (repos[i].open_issues_count > 0) {
+      //   statusEl.innerHTML =
+      //     "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + " issue(s)";
+      // } else {
+      //   statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
+      // }
   
       // append to container
       repoEl.appendChild(statusEl);
@@ -76,3 +76,4 @@ var displayRepos = function(repos, searchTerm) {
       repoContainerEl.appendChild(repoEl);
     }
   };
+getApplePodShowRepos();
