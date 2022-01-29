@@ -1,7 +1,7 @@
   :root {
       --primary: hsl(171, 100%, 41%);
       --secondary: hsl(0, 0%, 71%);
-      --grey: hsl (0, 0%, 86%);
+      --grey: hsl(0, 0%, 86%);
   }
   
   body {
@@ -30,7 +30,7 @@
     font-size: 1rem;
     border: 1px solid var(--grey);
     border-radius: 10px;
-  }
+}
 
   .btn {
     outline: none;
@@ -42,4 +42,9 @@
     border-radius: 10px;
     position: relative;
     box-shadow: 0 3px var(--grey);
-  }
+}
+
+  .categories {
+    padding: 10px 0px;
+    font-size: 1rem;
+}
