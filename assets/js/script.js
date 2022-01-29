@@ -31,10 +31,12 @@ var getApplePodShowRepos = function(show) {
         if (response.ok) {
             response.json().then(function(data) {
             
-                console.log("successful");
+                // console.log("successful");
                 console.log(response);
                 console.log(data);
                 console.log(data.results);
+                // displayPods(data. artistName);
+                displayPods(data.results)
             });
         // if request fails
         }  else {
@@ -61,11 +63,40 @@ categoryBtn.on("click", function(event) {
 searchFormEl.addEventListener("submit", formSubmitHandler);
 
 
+//function to display podcasts to html
+var displayPods = function(shows) {
 
-var displaypods = function(shows, searchTerm) {
-    console.log(shows);
-    console.log(searchTerm);
+    $("#podcasts").empty();
+
+    console.log(shows[0].artistName);      
+    console.log(shows[0].collectionName);      
     
+    for (let i = 0; i < shows.length; i++) {
+        const element = shows[i];
+        
+        var podcastContainer = document.getElementById("podcasts");
+        var artist = document.createElement("h1");
+        var title = document.createElement("p");
+        artist.textContent = shows[i].artistName
+        title.textContent = shows[i].collectionName
+    
+        var podcast = document.createElement("div");
+        podcast.appendChild(artist);
+        podcast.appendChild(title);
+        podcastContainer.appendChild(podcast);
+    };
+    
+    // var podcastContainer = document.getElementById("podcasts");
+    // var artist = document.createElement("h2");
+    // var title = document.createElement("h3");
+    // artist.innerText = shows[0].artistName
+    // title.innerText = shows[0].collectionName
+
+    // var podcast = document.createElement("div");
+    // podcast.appendChild(artist);
+    // podcast.appendChild(title);
+    // podcastContainer.appendChild(podcast);
+
   };
 
-  displaypods()
+ 
