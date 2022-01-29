@@ -7,7 +7,6 @@ var formSubmitHandler = function(event) {
     
     // get value from seach input
     var show = searchInputEl.value.trim();
-    console.log(show);
 
     if(show) {
         getApplePodShowRepos(show);
@@ -20,9 +19,8 @@ var formSubmitHandler = function(event) {
 
 // Lilly's code start
 var getApplePodShowRepos = function(show) {
-    console.log(show);
     // format the github api url
-    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm";
+    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials";
     
     // make a request to the url
     fetch(apiUrl).then(function(response) {
@@ -47,7 +45,6 @@ categoryBtn.on("click", function(event) {
     // when any of the category buttons are clicked, the precise one will be identified
     if (event.target.nodeName == "BUTTON") {
         var category = event.target.textContent;
-        console.log(category);
     }
     getApplePodShowRepos(category);
 });
