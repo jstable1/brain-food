@@ -2,6 +2,7 @@ var searchFormEl = document.querySelector("#search-form");
 var searchInputEl = document.querySelector("#search");
 var categoryBtn = $("#categories");
 
+// search box event handler - rachel
 var formSubmitHandler = function(event) {
     event.preventDefault();
     
@@ -16,11 +17,12 @@ var formSubmitHandler = function(event) {
         alert("Please enter a podcast category");
     }
 };
+// search box event handler - rachel
 
-// Lilly's code start
+// pull from Apple Podcasts API - lilly
 var getApplePodShowRepos = function(show) {
     // format the github api url
-    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials";
+    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&limit=20";
     
     // make a request to the url
     fetch(apiUrl).then(function(response) {
@@ -46,21 +48,22 @@ var getApplePodShowRepos = function(show) {
         alert("Error: search term not found. Please try again.");
     });
 };
+// pull from Apple Podcasts API - lilly
 
+// category button event listener - rachel
 categoryBtn.on("click", function(event) {
     // when any of the category buttons are clicked, the precise one will be identified
     if (event.target.nodeName == "BUTTON") {
         var category = event.target.textContent;
     }
     getApplePodShowRepos(category);
-
-    
 });
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
+// category button event listener - rachel
 
 
-//function to display podcasts to html
+// function to display podcasts to html - tyler
 var displayPods = function(shows) {
 
     $("#podcasts").empty();
@@ -72,28 +75,27 @@ var displayPods = function(shows) {
         const element = shows[i];
         
         var podcastContainer = document.getElementById("podcasts");
+
+        var image = document.createElement("img");
+        image.setAttribute("src", shows[i].artworkUrl100);
+
         var artist = document.createElement("h1");
+        artist.textContent = shows[i].artistName;
+
         var title = document.createElement("p");
-        artist.textContent = shows[i].artistName
-        title.textContent = shows[i].collectionName
+        title.textContent = shows[i].collectionName;
     
-        var podcast = document.createElement("div");
+        var podcast = document.createElement("a");
+        podcast.setAttribute("href", shows[i].trackViewUrl);
+        podcast.setAttribute("target", "_blank");
+        podcast.classList = "box";
+
+        podcast.appendChild(image);
         podcast.appendChild(artist);
         podcast.appendChild(title);
         podcastContainer.appendChild(podcast);
     };
-    
-    // var podcastContainer = document.getElementById("podcasts");
-    // var artist = document.createElement("h2");
-    // var title = document.createElement("h3");
-    // artist.innerText = shows[0].artistName
-    // title.innerText = shows[0].collectionName
-
-    // var podcast = document.createElement("div");
-    // podcast.appendChild(artist);
-    // podcast.appendChild(title);
-    // podcastContainer.appendChild(podcast);
-
+    // function to display podcasts to html - tyler
   };
 
  
