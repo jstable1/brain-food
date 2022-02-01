@@ -3,6 +3,26 @@ var searchInputEl = document.querySelector("#search");
 var repoList = document.querySelector('ul');
 var fetchButton = document.getElementById('fetch-button');
 
+var client_id = '4043533cab614e5c8352b407612abe7b';
+var redirect_uri = 'http://localhost:8888/callback';
+
+var app = express();
+
+app.get('/login', function(req, res) {
+
+    var state = generateRandomString(16);
+    var scope = 'user-read-private user-read-email';
+  
+    res.redirect('https://api.spotify.com/v1q=podcasts-web' +
+      querystring.stringify({
+        response_type: 'code',
+        client_id: client_id,
+        scope: scope,
+        redirect_uri: redirect_uri,
+        state: state
+    }));
+});
+
 function getApi() {
     // Replace `octocat` with anyone else's GitHub username
     var requestUrl = 'https://open.spotify.com/v1?q=podcasts-web&crossorigin=use-credentials';
