@@ -14,7 +14,8 @@ var formSubmitHandler = function(event) {
 
         searchInputEl.value = "";
     } else {
-        alert("Please enter a podcast category");
+        openModal();
+        changeContent("Please enter a podcast category");
     }
 };
 // search box event handler - rachel
@@ -40,12 +41,14 @@ var getApplePodShowRepos = function(show) {
             });
         // if request fails
         }  else {
-            alert("Error: search term not found");
+            openModal();
+            changeContent("Error: search term not found");
         }
         // if connection issue
     }).catch(function(error) {
         // this catch is chained to the end of the ".then"
-        alert("Error: search term not found. Please try again.");
+        openModal();
+        changeContent("Error: search term not found. Please try again.");
     });
 };
 // pull from Apple Podcasts API - lilly
@@ -98,4 +101,58 @@ var displayPods = function(shows) {
     // function to display podcasts to html - tyler
   };
 
+    // open modal
+    var openModal = function() {
+        var modal = document.querySelector(".modal");
+        modal.classList.add('is-active');
+    }
+
+    // change modal text
+    var changeContent = function(innerText) {
+        var modalText = document.querySelector(".modal").getElementsByClassName("modal-content")[0]
+        modalText.innerHTML = innerText;
+    }
+
+    // modal trigger
+    document.addEventListener('DOMContentLoaded', () => {
+        // Functions to close a modal
+        function closeModal($el) {
+          $el.classList.remove('is-active');
+        }
+      
+        function closeAllModals() {
+          (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+            closeModal($modal);
+          });
+        }
+      
+        // Add a click event on buttons to open a specific modal
+        (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+          const modal = $trigger.dataset.target;
+          const $target = document.getElementById(modal);
+          console.log($target);
+      
+          $trigger.addEventListener('click', () => {
+            openModal($target);
+          });
+        });
+      
+        // Add a click event on various child elements to close the parent modal
+        (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+          const $target = $close.closest('.modal');
+      
+          $close.addEventListener('click', () => {
+            closeModal($target);
+          });
+        });
+      
+        // Add a keyboard event to close all modals
+        document.addEventListener('keydown', (event) => {
+          const e = event || window.event;
+      
+          if (e.keyCode === 27) { // Escape key
+            closeAllModals();
+          }
+        });
+      });
  
