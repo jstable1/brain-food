@@ -20,10 +20,21 @@ var formSubmitHandler = function (event) {
 var getSubjectTitles = function(keyword) {
   var apiUrl = "https://openlibrary.org/search.json?q=" + keyword + "";
 
-   fetch(apiUrl, {
-   }).then(function (response) {
-       console.log();
-   });
+  fetch(apiUrl, {
+  }).then(function (response) {
+    return response.json();
+  }).then(function (data) {
+    for (var i = 0; i < data.length; i++) {
+
+      var listItem = document.createElement('li');
+      listItem.textContent = data[i].works.author.name;
+      subjectList.appendChild(listItem);
+      listItem.textContent = data[i].works.title;
+      subjectList.appendChild(listItem);
+  }
+  }).catch(function (err) {
+    console.log('rejected', err);
+  });
 }
 
 subjectBtn.on("click", function(event) {
