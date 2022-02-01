@@ -1,6 +1,7 @@
 var searchFormEl = document.querySelector("#search-form");
 var searchInputEl = document.querySelector("#search");
 var categoryBtn = $("#categories");
+var recentSearches = JSON.parse(localStorage.getItem("recentSearches"))?JSON.parse(localStorage.getItem("recentSearches")):[];
 
 // search box event handler - rachel
 var formSubmitHandler = function(event) {
@@ -10,6 +11,7 @@ var formSubmitHandler = function(event) {
     var show = searchInputEl.value.trim();
 
     if(show) {
+        saveSearch(show);
         getApplePodShowRepos(show);
 
         searchInputEl.value = "";
@@ -109,7 +111,7 @@ var displayPods = function(shows) {
 
     // change modal text
     var changeContent = function(innerText) {
-        var modalText = document.querySelector(".modal").getElementsByClassName("modal-content")[0]
+        var modalText = document.querySelector("#modal-text")
         modalText.innerHTML = innerText;
     }
 
@@ -155,4 +157,19 @@ var displayPods = function(shows) {
           }
         });
       });
- 
+
+      // Save recent searches to local storage
+      var saveSearch = function (search) {
+        if (recentSearches.indexOf(search)=== -1) {
+            recentSearches.push(search)
+        
+            if (recentSearches.length > 10) {
+                recentSearches.shift();
+            }
+  
+            localStorage.setItem("recentSearches", JSON.stringify(recentSearches))
+        }
+        }
+
+      // Retreive recent searches from local storage
+        
