@@ -1,5 +1,8 @@
+var subjectList = document.querySelector('ul');
+var subjectContainerEl = document.querySelector('#subject-container');
 var searchFormEl = document.querySelector('#search-form');
 var searchInputEl = document.querySelector("#search");
+var subjectBtn = $("#subjects");
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -22,5 +25,14 @@ var getSubjectTitles = function(keyword) {
        console.log();
    });
 }
+
+subjectBtn.on("click", function(event) {
+    
+  if (event.target.nodeName == "BUTTON") {
+      var subject = event.target.textContent;
+      console.log(subject);
+  }
+  getSubjects(subject);
+});
 
 searchFormEl.addEventListener('submit', formSubmitHandler);
