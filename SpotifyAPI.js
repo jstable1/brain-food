@@ -23,6 +23,22 @@ app.get('/login', function(req, res) {
     }));
 });
 
+var formSubmitHandler = function(event) {
+    event.preventDefault();
+    
+    // get value from seach input
+    var show = searchInputEl.value.trim();
+    console.log(show);
+
+    if(show) {
+        getSpotifyShowRepos(show);
+
+        searchInputEl.value = "";
+    } else {
+        alert("Please enter a podcast category");
+    }
+};
+
 function getApi() {
     // Replace `octocat` with anyone else's GitHub username
     var requestUrl = 'https://open.spotify.com/v1?q=podcasts-web&crossorigin=use-credentials';
@@ -53,7 +69,14 @@ var getSpotifyShowRepos = function(show) {
             response.json().then(function() {
                 console.log("successful");
             });
+        // if request fails
+        }  else {
+            alert("Error: search term not found");
         }
+        // if connection issue
+    }).catch(function(error) {
+        // this catch is chained to the end of the ".then"
+        alert("Error: search term not found. Please try again.");
     });
 };
 
