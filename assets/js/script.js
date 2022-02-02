@@ -1,6 +1,7 @@
 var searchFormEl = document.querySelector("#search-form");
 var searchInputEl = document.querySelector("#search");
 var categoryBtn = $("#categories");
+var bookContainer = document.getElementById("book-content");
 var recentSearches = JSON.parse(localStorage.getItem("recentSearches"))?JSON.parse(localStorage.getItem("recentSearches")):[];
 
 // search box event handler - rachel
@@ -62,7 +63,6 @@ var getSubjectTitles = function(show) {
      // if request is successful
      if (response.ok) {
       response.json().then(function(data) {
-        console.log("book fetch successful");
         console.log(data);
         console.log(data.docs);
         displayBooks(data.docs);
@@ -83,33 +83,31 @@ var getSubjectTitles = function(show) {
 
 // display book fetch results - rachel
 var displayBooks = function (data) {
-  console.log(data[0].author_name[0]);
-  console.log(data[0].title);
 
   for (var i = 0; i < data.length; i++) {
-    var authorName = data[i].author_name[0];
-    var bookTitle = data[i].title;
-    listItem = document.createElement('li');
-    listItem.textContent = 
-    subjectList.appendChild(listItem);
-    listItem.textContent = 
-    subjectList.appendChild(listItem);
+     // book details container
+    var bookDetails = document.createElement("div");
+    // bookDetails.setAttribute("href", shows[i].trackViewUrl);
+    // bookDetails.setAttribute("target", "_blank");
+    // bookDetails.classList = "box";
+
+    // book author 
+    var authorName = document.createElement("h1");
+    authorName.textContent = data[i].author_name[0];
+
+    // book title 
+    var bookTitle = document.createElement("p");
+    bookTitle.textContent = data[i].title;
+ 
+    bookDetails.appendChild(authorName);
+    bookDetails.appendChild(bookTitle);
+    bookContainer.appendChild(bookDetails);
+     
 }
 }
 // display book results - rachel
 
-// category button event listener - rachel
-categoryBtn.on("click", function(event) {
-    // when any of the category buttons are clicked, the precise one will be identified
-    if (event.target.nodeName == "BUTTON") {
-        var category = event.target.textContent;
-    }
-    getApplePodShowRepos(category);
-    getSubjectTitles(category);
-});
 
-searchFormEl.addEventListener("submit", formSubmitHandler);
-// category button event listener - rachel
 
 
 // function to display podcasts to html - tyler
@@ -216,3 +214,16 @@ var displayPods = function(shows) {
         }
 
       // Retreive recent searches from local storage
+
+      // category button event listener - rachel
+categoryBtn.on("click", function(event) {
+  // when any of the category buttons are clicked, the precise one will be identified
+  if (event.target.nodeName == "BUTTON") {
+      var category = event.target.textContent;
+  }
+  getApplePodShowRepos(category);
+  getSubjectTitles(category);
+});
+
+searchFormEl.addEventListener("submit", formSubmitHandler);
+// category button event listener - rachel
