@@ -171,5 +171,18 @@ var displayPods = function(shows) {
         }
         }
 
-      // Retreive recent searches from local storage
+      // Display array from local storage
+      var displaySearches = function () {
+
+        // if there are no searches, set tasks to an empty array and return out of the function
+        if (!recentSearches) {
+            return false;
+        }
+
+        // loop through savedSearches array
+        for (var i = 0; i < recentSearches.length; i++) {
+            //pass each task object into the html ul section
+            document.getElementById("recentSearches").innerHTML = displaySearches;
+        }
+      }
         
