@@ -12,12 +12,13 @@ var formSubmitHandler = function(event) {
 
     if(show) {
         saveSearch(show);
+        saveSearch(show);
         getApplePodShowRepos(show);
-
+        getSubjectTitles(show);
         searchInputEl.value = "";
     } else {
         openModal();
-        changeContent("Please enter a podcast category");
+        changeContent("Please enter a valid category");
     }
 };
 // search box event handler - rachel
@@ -33,8 +34,6 @@ var getApplePodShowRepos = function(show) {
         // if request was successful
         if (response.ok) {
             response.json().then(function(data) {
-            
-                // console.log("successful");
                 console.log(response);
                 console.log(data);
                 console.log(data.results);
@@ -55,6 +54,50 @@ var getApplePodShowRepos = function(show) {
 };
 // pull from Apple Podcasts API - lilly
 
+// pull from Open Library API - Josh
+var getSubjectTitles = function(show) {
+  var apiUrl = "https://openlibrary.org/search.json?q=" + show + "&limit=20";
+
+   fetch(apiUrl, {}).then(function(response) {
+     // if request is successful
+     if (response.ok) {
+      response.json().then(function(data) {
+        console.log("book fetch successful");
+        console.log(data);
+        console.log(data.docs);
+        displayBooks(data.docs);
+      });
+     } else {
+      openModal();
+      changeContent("Error: search term not found");
+     }
+
+    // if connection issue
+    }).catch(function(error) {
+      // this catch is chained to the end of the ".then"
+      openModal();
+      changeContent("Error: search term not found. Please try again.");
+    });
+};
+// end Josh's fetch section
+
+// display book fetch results - rachel
+var displayBooks = function (data) {
+  console.log(data[0].author_name[0]);
+  console.log(data[0].title);
+
+  for (var i = 0; i < data.length; i++) {
+    var authorName = data[i].author_name[0];
+    var bookTitle = data[i].title;
+    listItem = document.createElement('li');
+    listItem.textContent = 
+    subjectList.appendChild(listItem);
+    listItem.textContent = 
+    subjectList.appendChild(listItem);
+}
+}
+// display book results - rachel
+
 // category button event listener - rachel
 categoryBtn.on("click", function(event) {
     // when any of the category buttons are clicked, the precise one will be identified
@@ -62,6 +105,7 @@ categoryBtn.on("click", function(event) {
         var category = event.target.textContent;
     }
     getApplePodShowRepos(category);
+    getSubjectTitles(category);
 });
 
 searchFormEl.addEventListener("submit", formSubmitHandler);
@@ -172,4 +216,3 @@ var displayPods = function(shows) {
         }
 
       // Retreive recent searches from local storage
-        
