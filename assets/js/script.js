@@ -1,6 +1,7 @@
 var searchFormEl = document.querySelector("#search-form");
 var searchInputEl = document.querySelector("#search");
 var categoryBtn = $("#categories");
+var bookContainer = document.getElementById("book-content");
 var recentSearches = JSON.parse(localStorage.getItem("recentSearches"))?JSON.parse(localStorage.getItem("recentSearches")):[];
 
 // search box event handler - rachel
@@ -9,15 +10,17 @@ var formSubmitHandler = function(event) {
     
     // get value from seach input
     var show = searchInputEl.value.trim();
+    console.log(show.toLowerCase());
 
     if(show) {
         saveSearch(show);
+        saveSearch(show);
         getApplePodShowRepos(show);
-
+        getSubjectTitles(show);
         searchInputEl.value = "";
     } else {
         openModal();
-        changeContent("Please enter a podcast category");
+        changeContent("Please enter a valid category");
     }
 };
 // search box event handler - rachel
@@ -25,7 +28,7 @@ var formSubmitHandler = function(event) {
 // pull from Apple Podcasts API - lilly
 var getApplePodShowRepos = function(show) {
     // format the github api url
-    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&limit=20";
+    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&type=module&limit=20";
     
     // make a request to the url
     fetch(apiUrl).then(function(response) {
@@ -33,12 +36,7 @@ var getApplePodShowRepos = function(show) {
         // if request was successful
         if (response.ok) {
             response.json().then(function(data) {
-            
-                // console.log("successful");
-                console.log(response);
-                console.log(data);
                 console.log(data.results);
-                // displayPods(data. artistName);
                 displayPods(data.results)
             });
         // if request fails
@@ -55,27 +53,73 @@ var getApplePodShowRepos = function(show) {
 };
 // pull from Apple Podcasts API - lilly
 
-// category button event listener - rachel
-categoryBtn.on("click", function(event) {
-    // when any of the category buttons are clicked, the precise one will be identified
-    if (event.target.nodeName == "BUTTON") {
-        var category = event.target.textContent;
-    }
-    getApplePodShowRepos(category);
-});
+// pull from Open Library API - Josh
+var getSubjectTitles = function(show) {
 
-searchFormEl.addEventListener("submit", formSubmitHandler);
-// category button event listener - rachel
+  var apiUrl = "https://openlibrary.org/search.json?q=" + show + "&limit=20";
 
+   fetch(apiUrl, {}).then(function(response) {
+     // if request is successful
+     if (response.ok) {
+      response.json().then(function(data) {
+        console.log(data.docs);
+        displayBooks(data.docs);
+      });
+     } else {
+      openModal();
+      changeContent("Error: search term not found");
+     }
+
+    // if connection issue
+    }).catch(function(error) {
+      // this catch is chained to the end of the ".then"
+      openModal();
+      changeContent("Error: search term not found. Please try again.");
+    });
+};
+// end Josh's fetch section
+
+// display book fetch results - rachel
+var displayBooks = function (data) {
+
+  $("#book-content").empty();
+
+  for (var i = 0; i < data.length; i++) {
+    var bookISBN = data[i].isbn[0];
+    var bookCoverImg = "https://covers.openlibrary.org/b/isbn/" + bookISBN + "-M.jpg";
+    var bookLink = "https://openlibrary.org/isbn/" + bookISBN + "";
+
+     // book details container
+    var bookDetails = document.createElement("a");
+    bookDetails.setAttribute("href", bookLink);
+    bookDetails.setAttribute("target", "_blank");
+    bookDetails.classList = "box";
+
+    // book author 
+    var authorName = document.createElement("h1");
+    authorName.textContent = data[i].author_name[0];
+
+    // book title 
+    var bookTitle = document.createElement("p");
+    bookTitle.textContent = data[i].title;
+
+    // book cover image
+    var bookImg = document.createElement("img");
+    bookImg.setAttribute("src", bookCoverImg);
+ 
+    bookDetails.appendChild(bookImg);
+    bookDetails.appendChild(authorName);
+    bookDetails.appendChild(bookTitle);
+    bookContainer.appendChild(bookDetails);
+    };
+};
+// display book results - rachel
 
 // function to display podcasts to html - tyler
 var displayPods = function(shows) {
 
     $("#podcasts").empty();
-
-    console.log(shows[0].artistName);      
-    console.log(shows[0].collectionName);      
-    
+      
     for (let i = 0; i < shows.length; i++) {
         const element = shows[i];
         
@@ -171,7 +215,7 @@ var displayPods = function(shows) {
         }
         }
 
-              // Display array from local storage
+      // Display array from local storage
       var displaySearches = function () {
 
         // if there are no searches, set tasks to an empty array and return out of the function
@@ -187,4 +231,20 @@ var displayPods = function(shows) {
         }
       }
       //document.getElementById("recentSearches").innerHTML = recentSearches;
-        
+
+// category button event listener - rachel
+categoryBtn.on("click", function(event) {
+  // when any of the category buttons are clicked, the precise one will be identified
+  if (event.target.nodeName == "BUTTON") {
+      var button = event.target.textContent;
+      var category = button.toLowerCase();
+      console.log(category);
+   
+    }
+  getApplePodShowRepos(category);
+  getSubjectTitles(category);
+});
+
+
+// category button event listener - rachel
+searchFormEl.addEventListener("submit", formSubmitHandler);
