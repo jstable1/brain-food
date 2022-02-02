@@ -9,7 +9,8 @@ var formSubmitHandler = function(event) {
     event.preventDefault();
     
     // get value from seach input
-    var show = searchInputEl.value.trim();
+    var show = searchInputEl.toLowerCase().value.trim();
+    console.log(show);
 
     if(show) {
         saveSearch(show);
@@ -35,10 +36,7 @@ var getApplePodShowRepos = function(show) {
         // if request was successful
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(response);
-                console.log(data);
                 console.log(data.results);
-                // displayPods(data. artistName);
                 displayPods(data.results)
             });
         // if request fails
@@ -63,7 +61,6 @@ var getSubjectTitles = function(show) {
      // if request is successful
      if (response.ok) {
       response.json().then(function(data) {
-        console.log(data);
         console.log(data.docs);
         displayBooks(data.docs);
       });
@@ -83,10 +80,12 @@ var getSubjectTitles = function(show) {
 
 // display book fetch results - rachel
 var displayBooks = function (data) {
+
   for (var i = 0; i < data.length; i++) {
-    var bookISBN = data[i].isbn[1];
+    var bookISBN = data[i].isbn[0];
     var bookCoverImg = "https://covers.openlibrary.org/b/isbn/" + bookISBN + "-M.jpg";
     var bookLink = "https://openlibrary.org/isbn/" + bookISBN + "";
+    console.log(bookISBN);
 
      // book details container
     var bookDetails = document.createElement("a");
@@ -106,6 +105,7 @@ var displayBooks = function (data) {
     var bookImg = document.createElement("img");
     bookImg.setAttribute("src", bookCoverImg);
  
+    bookDetails.appendChild(bookImg);
     bookDetails.appendChild(authorName);
     bookDetails.appendChild(bookTitle);
     bookContainer.appendChild(bookDetails);
@@ -117,10 +117,7 @@ var displayBooks = function (data) {
 var displayPods = function(shows) {
 
     $("#podcasts").empty();
-
-    console.log(shows[0].artistName);      
-    console.log(shows[0].collectionName);      
-    
+      
     for (let i = 0; i < shows.length; i++) {
         const element = shows[i];
         
