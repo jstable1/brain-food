@@ -233,7 +233,7 @@ var displaySearches = function() {
     var search = document.createElement("button");
     search.textContent = recentSearches[i];
     // search.on("click", formSubmitHandler(recentSearches[i]));
-    search.classList = "button is-rounded is-fullwidth";
+    search.classList = "button is-rounded is-fullwidth mb-1";
 
     recentSearchesListEl.appendChild(search);
     recentSearchesEl.appendChild(recentSearchesListEl);
