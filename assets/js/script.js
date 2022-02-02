@@ -9,8 +9,8 @@ var formSubmitHandler = function(event) {
     event.preventDefault();
     
     // get value from seach input
-    var show = searchInputEl.toLowerCase().value.trim();
-    console.log(show);
+    var show = searchInputEl.value.trim();
+    console.log(show.toLowerCase());
 
     if(show) {
         saveSearch(show);
@@ -28,7 +28,7 @@ var formSubmitHandler = function(event) {
 // pull from Apple Podcasts API - lilly
 var getApplePodShowRepos = function(show) {
     // format the github api url
-    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&limit=20";
+    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&type=module&limit=20";
     
     // make a request to the url
     fetch(apiUrl).then(function(response) {
@@ -55,6 +55,7 @@ var getApplePodShowRepos = function(show) {
 
 // pull from Open Library API - Josh
 var getSubjectTitles = function(show) {
+
   var apiUrl = "https://openlibrary.org/search.json?q=" + show + "&limit=20";
 
    fetch(apiUrl, {}).then(function(response) {
@@ -81,11 +82,12 @@ var getSubjectTitles = function(show) {
 // display book fetch results - rachel
 var displayBooks = function (data) {
 
+  $("#book-content").empty();
+
   for (var i = 0; i < data.length; i++) {
     var bookISBN = data[i].isbn[0];
     var bookCoverImg = "https://covers.openlibrary.org/b/isbn/" + bookISBN + "-M.jpg";
     var bookLink = "https://openlibrary.org/isbn/" + bookISBN + "";
-    console.log(bookISBN);
 
      // book details container
     var bookDetails = document.createElement("a");
@@ -219,8 +221,11 @@ var displayPods = function(shows) {
 categoryBtn.on("click", function(event) {
   // when any of the category buttons are clicked, the precise one will be identified
   if (event.target.nodeName == "BUTTON") {
-      var category = event.target.textContent;
-  }
+      var button = event.target.textContent;
+      var category = button.toLowerCase();
+      console.log(category);
+   
+    }
   getApplePodShowRepos(category);
   getSubjectTitles(category);
 });
