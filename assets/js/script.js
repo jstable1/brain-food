@@ -48,16 +48,16 @@ var getApplePodShowRepos = function(show) {
         // if connection issue
     }).catch(function(error) {
         // this catch is chained to the end of the ".then"
-        openModal();
+        openModal('rejected', error);
         changeContent("Error: search term not found. Please try again.");
     });
 };
 // pull from Apple Podcasts API - lilly
 
 // pull from Open Library API - Josh
-var getSubjectTitles = function(show) {
+var getSubjectTitles = function(book) {
 
-  var apiUrl = "https://openlibrary.org/search.json?q=" + show + "&limit=20";
+  var apiUrl = "https://openlibrary.org/search.json?q=" + book + "&limit=20";
 
    fetch(apiUrl, {}).then(function(response) {
      // if request is successful
@@ -74,7 +74,7 @@ var getSubjectTitles = function(show) {
     // if connection issue
     }).catch(function(error) {
       // this catch is chained to the end of the ".then"
-      openModal();
+      openModal('rejected', error);
       changeContent("Error: search term not found. Please try again.");
     });
 };
