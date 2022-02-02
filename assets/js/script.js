@@ -171,7 +171,7 @@ var displayPods = function(shows) {
         }
         }
 
-      // Display array from local storage
+              // Display array from local storage
       var displaySearches = function () {
 
         // if there are no searches, set tasks to an empty array and return out of the function
@@ -182,7 +182,9 @@ var displayPods = function(shows) {
         // loop through savedSearches array
         for (var i = 0; i < recentSearches.length; i++) {
             //pass each task object into the html ul section
-            document.getElementById("recentSearches").innerHTML = displaySearches;
+            let li = document.createElement("li").innerHTML = recentSearches [i];
+            document.getElementById.appendChild("recentSearches");
         }
       }
+      //document.getElementById("recentSearches").innerHTML = recentSearches;
         
