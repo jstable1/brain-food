@@ -83,13 +83,16 @@ var getSubjectTitles = function(show) {
 
 // display book fetch results - rachel
 var displayBooks = function (data) {
-
   for (var i = 0; i < data.length; i++) {
+    var bookISBN = data[i].isbn[1];
+    var bookCoverImg = "https://covers.openlibrary.org/b/isbn/" + bookISBN + "-M.jpg";
+    var bookLink = "https://openlibrary.org/isbn/" + bookISBN + "";
+
      // book details container
-    var bookDetails = document.createElement("div");
-    // bookDetails.setAttribute("href", shows[i].trackViewUrl);
-    // bookDetails.setAttribute("target", "_blank");
-    // bookDetails.classList = "box";
+    var bookDetails = document.createElement("a");
+    bookDetails.setAttribute("href", bookLink);
+    bookDetails.setAttribute("target", "_blank");
+    bookDetails.classList = "box";
 
     // book author 
     var authorName = document.createElement("h1");
@@ -98,17 +101,17 @@ var displayBooks = function (data) {
     // book title 
     var bookTitle = document.createElement("p");
     bookTitle.textContent = data[i].title;
+
+    // book cover image
+    var bookImg = document.createElement("img");
+    bookImg.setAttribute("src", bookCoverImg);
  
     bookDetails.appendChild(authorName);
     bookDetails.appendChild(bookTitle);
     bookContainer.appendChild(bookDetails);
-     
-}
-}
+    };
+};
 // display book results - rachel
-
-
-
 
 // function to display podcasts to html - tyler
 var displayPods = function(shows) {
