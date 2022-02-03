@@ -28,8 +28,8 @@ var formSubmitHandler = function(event) {
 
 // pull from Apple Podcasts API - lilly
 var getApplePodShowRepos = function(show) {
-    // format the github api url
-    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&type=module&limit=20";
+    // format the apple api url
+    var apiUrl = "https://cors-proxy.htmldriven.com/?url=https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&type=module&limit=20";
     
     // make a request to the url
     fetch(apiUrl).then(function(response) {
@@ -214,10 +214,13 @@ var saveSearch = function(search) {
           recentSearches.shift();
       }
 
+      document.getElementById("recentSearches").innerHTML = recentSearches;
       localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
   }
 };
+
 // Save recent searches to local storage - jessica
+
 
 // Display array from local storage - jessica & lilly
 var displaySearches = function() {
@@ -235,7 +238,9 @@ var displaySearches = function() {
     var search = document.createElement("button");
     search.setAttribute("value", recentSearches[i]);
     search.textContent = recentSearches[i];
+
     search.classList = "button is-rounded is-fullwidth";
+
 
     recentSearchesListEl.appendChild(search);
     recentSearchesEl.appendChild(recentSearchesListEl);  
