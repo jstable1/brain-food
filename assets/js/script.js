@@ -29,7 +29,7 @@ var formSubmitHandler = function(event) {
 // pull from Apple Podcasts API - lilly
 var getApplePodShowRepos = function(show) {
     // format the apple api url
-    var apiUrl = "https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&type=module&limit=20";
+    var apiUrl = "https://cors-proxy.htmldriven.com/?url=https://itunes.apple.com/search?term=" + show + "&entity=podcast&attribute=keywordsTerm&crossorigin=use-credentials&type=module&limit=20";
     
     // make a request to the url
     fetch(apiUrl).then(function(response) {
