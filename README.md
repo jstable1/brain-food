@@ -12,6 +12,7 @@ Brain Food is a quick entertainment search tool to help you find content you’l
 - Open Library API
 
 ### Screenshot
-
+<img width="1440" alt="Screen Shot 2022-02-02 at 5 16 48 PM" src="https://user-images.githubusercontent.com/93904532/152259634-e8d948ae-606b-46ac-8c11-f791bed4b0e5.png">
 
 ### Deployed Application
+https://lillylav.github.io/brain-food/
