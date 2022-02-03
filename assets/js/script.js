@@ -212,10 +212,10 @@ var saveSearch = function(search) {
           recentSearches.shift();
       }
 
+      document.getElementById("recentSearches").innerHTML = recentSearches;
       localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
   }
 };
-    //document.getElementById("recentSearches").innerHTML = recentSearches;
 
 // Display array from local storage
 var displaySearches = function() {
@@ -232,7 +232,6 @@ var displaySearches = function() {
     //pass each task object into the html ul section
     var search = document.createElement("button");
     search.textContent = recentSearches[i];
-    // search.on("click", formSubmitHandler(recentSearches[i]));
     search.classList = "button is-rounded is-fullwidth mb-1";
 
     recentSearchesListEl.appendChild(search);
