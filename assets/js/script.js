@@ -242,12 +242,13 @@ var displaySearches = function() {
   }
 };
 
-// make recent searches clickable and display results on page
-$("#item").on("click", function () {
-  var buttonText = $(this).children("button").attr("value");
+// make recent searches clickable and display results on page - lilly
+$("#item").on("click", "button", function () {
+  var buttonText = $(this).attr("value");
   console.log(buttonText);
   recentSearchLoad(buttonText);
 });
+// make recent searches clickable and display results on page - lilly
 
 var recentSearchLoad = function(load) {
   // get value from seach input
