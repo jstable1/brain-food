@@ -19,6 +19,7 @@ var formSubmitHandler = function(event) {
         getApplePodShowRepos(show);
         getSubjectTitles(show);
         searchInputEl.value = "";
+        displaySearches();
     } else {
         openModal();
         changeContent("Please enter a valid category");
