@@ -19,4 +19,4 @@ Users are able to type a search term in the "Search by Keyword" box or select a 
 <img width="1440" alt="Screen Shot 2022-02-02 at 5 19 47 PM" src="https://user-images.githubusercontent.com/93904532/152259948-f327778b-97b2-4b4a-9bc6-7fcc4a4884dc.png">
 
 ### Deployed Application
-https://lillylav.github.io/brain-food/
+https://jstable1.github.io/brain-food/
