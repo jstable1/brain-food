@@ -11,6 +11,9 @@ Brain Food is a quick entertainment search tool to help you find content you’l
 - Apple iTunes API
 - Open Library API
 
+### User Experience
+Users are able to type a search term in the "Search by Keyword" box or select a category under "Search by Category". The users search criteria is then used to search for relevant books and podcasts that are then recommended to the user.
+
 ### Screenshot
 <img width="1440" alt="Screen Shot 2022-02-02 at 5 18 21 PM" src="https://user-images.githubusercontent.com/93904532/152259815-9c861355-72b8-460f-8e97-5c6212018589.png">
 <img width="1440" alt="Screen Shot 2022-02-02 at 5 19 47 PM" src="https://user-images.githubusercontent.com/93904532/152259948-f327778b-97b2-4b4a-9bc6-7fcc4a4884dc.png">
